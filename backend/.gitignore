@@ -1,0 +1,13 @@
+web/static/
+Pip*
+Pipfile*
+__pycache__/
+.idea/
+celerybeat*
+.local/
+*.log
+.ash_history
+.coverage
+web/.cache
+.cache
+web/media/*
