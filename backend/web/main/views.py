@@ -1,28 +1,37 @@
 from django.contrib.auth import get_user_model
-from rest_framework.generics import GenericAPIView, get_object_or_404
-from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin, DestroyModelMixin, CreateModelMixin
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import GenericViewSet
 
-from .serializers import UserSerializer
+from core.permissions import IsNotAuthenticated
+from .serializers import UserProfileSerializer, UserRegistrationSerializer
 
 User = get_user_model()
 
 
-class UserView(GenericAPIView):
-    serializer_class = UserSerializer
-
-    def get_queryset(self):
-        return User.objects.filter(id=self.request.user.id)
+class UserProfile(GenericAPIView, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserProfileSerializer
+    queryset = User.objects.all()
 
     def get_object(self):
-        obj = get_object_or_404(self.get_queryset(), id=self.request.user.id)
-        self.check_object_permissions(self.request, obj)
-        return obj
+        return self.request.user
 
-    def get(self, request):
-        """Current user view
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, args, kwargs)
 
-            Using this construction you can load related fields (select_related and prefetch_related) in queryset
-        """
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, args, kwargs)
 
-        serializer = self.get_serializer(self.get_object())
-        return Response(serializer.data)
+    def post(self, request, *args, **kwargs):
+        return self.update(request, args, kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, args, kwargs)
+
+
+class UserRegistration(GenericViewSet, CreateModelMixin):
+    permission_classes = [IsNotAuthenticated]
+    serializer_class = UserRegistrationSerializer
+    queryset = User.objects.all()
