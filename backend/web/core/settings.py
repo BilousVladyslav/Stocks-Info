@@ -7,6 +7,7 @@ from .additional_settings.swagger_settings import *
 from .additional_settings.cacheops_settings import *
 from .additional_settings.logging_settings import *
 from .additional_settings.celery_settings import *
+from .additional_settings.smtp_settings import *
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
