@@ -43,7 +43,7 @@ services:
     build:
       context: .
       dockerfile: docker/prod/web/Dockerfile
-    command: celery -A src worker -l info -Q celery
+    command: celery -A сщку worker -l info -Q celery
     env_file:
       - docker/prod/env/.env
       - docker/prod/env/.db.env
