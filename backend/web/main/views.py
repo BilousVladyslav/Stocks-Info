@@ -2,15 +2,17 @@ from django.contrib.auth import get_user_model
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin, DestroyModelMixin, CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from core.permissions import IsNotAuthenticated
-from .serializers import UserProfileSerializer, UserRegistrationSerializer
+from .models import EmailChangingRequest
+from .serializers import UserProfileSerializer, UserRegistrationSerializer, ChangeUserPasswordSerializer
 
 User = get_user_model()
 
 
-class UserProfile(GenericAPIView, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin):
+class UserProfileAPIView(GenericAPIView, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin):
     permission_classes = [IsAuthenticated]
     serializer_class = UserProfileSerializer
     queryset = User.objects.all()
@@ -31,7 +33,31 @@ class UserProfile(GenericAPIView, UpdateModelMixin, DestroyModelMixin, RetrieveM
         return self.destroy(request, args, kwargs)
 
 
-class UserRegistration(GenericViewSet, CreateModelMixin):
+class UserRegistrationViewSet(GenericViewSet, CreateModelMixin):
     permission_classes = [IsNotAuthenticated]
     serializer_class = UserRegistrationSerializer
     queryset = User.objects.all()
+
+
+class ChangeUserPasswordAPIView(GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ChangeUserPasswordSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'status': 'success'})
+
+
+class ChangeUserEmailViewSet(GenericViewSet, CreateModelMixin):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserRegistrationSerializer
+
+    def get_queryset(self):
+        return EmailChangingRequest.objects.filter(is_active=True, user=self.request.user).select_related('user')
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.update_user_email()
+        return Response({'status': 'success'})

@@ -20,6 +20,7 @@ ALLOWED_HOSTS: list = os.environ.get("DJANGO_ALLOWED_HOSTS").split(",")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'main.User'
+USER_CONFIRMATION_TIMEOUT = int(os.environ.get('USER_CONFIRMATION_TIMEOUT', 60 * 60 * 24))
 
 SUPERUSER_EMAIL = os.environ.get('SUPERUSER_EMAIL', 'test@test.com')
 SUPERUSER_USERNAME = os.environ.get('SUPERUSER_USERNAME', 'test')
