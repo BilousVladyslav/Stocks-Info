@@ -1,13 +1,18 @@
+import hashlib
+
 from django.conf import settings
+from django.core.signing import TimestampSigner
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import get_default_password_validators
+from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from .tasks import delete_unconfirmed_user, disable_new_email_request
+from .tasks import delete_unconfirmed_user
 from .models import EmailChangingRequest
 from core.serializers import CreateSerializerMixin, UpdateSerializerMixin
+from core.tasks import send_email_task
 
 User = get_user_model()
 
@@ -39,6 +44,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create(**validated_data, is_active=False)
         delete_unconfirmed_user.apply_async((user.id,), countdown=settings.USER_CONFIRMATION_TIMEOUT)
+
+        user_id_signature = TimestampSigner().sign(user.id)
+        link = settings.FRONTEND_URL + f'/profile/registration_complete/{user_id_signature}/'
+        html_content = get_template('email_letters/registration_confirmation.html').render({'confirmation_link': link})
+        subject = _('Registration confirmation')
+        send_email_task.delay([user.email], subject, html_content)
+
         return user
 
 
@@ -80,6 +92,13 @@ class ChangeUserEmailSerializer(serializers.ModelSerializer):
         fields = ('new_email',)
 
     def create(self, validated_data):
-        request = EmailChangingRequest.objects.create(**validated_data, user=self.context['request'].user)
-        disable_new_email_request.apply_async((request.id,), countdown=settings.USER_CONFIRMATION_TIMEOUT)
+        user = self.context['request'].user
+        request = EmailChangingRequest.objects.create(**validated_data, user=user)
+
+        request_uuid_signature = TimestampSigner().sign(request.uuid)
+        context = {'confirmation_link': settings.FRONTEND_URL + f'/profile/change_email/{request_uuid_signature}/'}
+        html_content = get_template('email_letters/email_changing_confirmation.html').render(context)
+        subject = _('Email changing confirmation')
+        send_email_task.delay([user.email], subject, html_content)
+
         return request

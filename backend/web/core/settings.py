@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from django.utils.translation import gettext_lazy as _
 
@@ -26,7 +27,8 @@ SUPERUSER_EMAIL = os.environ.get('SUPERUSER_EMAIL', 'test@test.com')
 SUPERUSER_USERNAME = os.environ.get('SUPERUSER_USERNAME', 'test')
 SUPERUSER_PASSWORD = os.environ.get('SUPERUSER_PASSWORD', 'tester26')
 
-MICROSERVICE_TITLE = os.environ.get('MICROSERVICE_TITLE', 'Template')
+MICROSERVICE_TITLE = os.environ.get('MICROSERVICE_TITLE', 'Stocks-Info')
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'localhost:4200')
 
 REDIS_URL = os.environ.get('REDIS_URL')
 
@@ -91,10 +93,25 @@ REST_FRAMEWORK = {
         'microservice_request.permissions.HasApiKeyOrIsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=12),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
+    'ROTATE_REFRESH_TOKENS': True,
+    'UPDATE_LAST_LOGIN': True,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
 
 ROOT_URLCONF = 'core.urls'
