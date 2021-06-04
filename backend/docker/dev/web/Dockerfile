@@ -31,6 +31,6 @@ COPY --chown=$USER:$USER ./web $HOME
 
 RUN chmod +x /entrypoint.sh && mkdir -p $HOME/static && chown -R $USER:$USER $HOME/static
 
-RUN flake8 .
+#RUN flake8 .
 
 USER $USER

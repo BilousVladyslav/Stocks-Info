@@ -13,6 +13,7 @@ services:
     env_file:
       - docker/dev/env/.env
       - docker/dev/env/.db.env
+      - docker/dev/env/.email.env
       - docker/prod/env/.data.env
     depends_on:
       db:
@@ -63,7 +64,7 @@ services:
     build:
       context: .
       dockerfile: docker/dev/web/Dockerfile
-    command: celery -A core worker -l info -Q celery
+    command: celery -A core worker -l debug -Q celery
     volumes:
       - ./web/:/usr/src/web/
     env_file:

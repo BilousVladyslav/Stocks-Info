@@ -49,7 +49,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         link = settings.FRONTEND_URL + f'/profile/registration_complete/{user_id_signature}/'
         html_content = get_template('email_letters/registration_confirmation.html').render({'confirmation_link': link})
         subject = _('Registration confirmation')
-        send_email_task.delay([user.email], subject, html_content)
+        send_email_task.delay(subject, '',  html_content, [user.email])
 
         return user
 
