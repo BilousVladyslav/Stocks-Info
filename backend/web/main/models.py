@@ -28,7 +28,7 @@ class EmailChangingRequest(models.Model):
     user = models.ForeignKey('main.User', on_delete=models.CASCADE, verbose_name=_('User'))
     new_email = models.EmailField(_('Email address'), blank=False)
     confirmed = models.BooleanField(default=True, verbose_name=_('active'))
-    created = models.DateTimeField(auto_created=True, verbose_name=_('Created'))
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
 
     class Meta:
         verbose_name = _('Email changing request')

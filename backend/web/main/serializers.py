@@ -1,10 +1,11 @@
 import hashlib
 
 from django.conf import settings
+from django.core import exceptions
 from django.core.signing import TimestampSigner
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.password_validation import get_default_password_validators
+from django.contrib.auth.password_validation import validate_password
 from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
@@ -63,13 +64,30 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class ChangeUserPasswordSerializer(CreateSerializerMixin, UpdateSerializerMixin, serializers.Serializer):
     old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True, validators=get_default_password_validators())
+    new_password = serializers.CharField(required=True)
     password_second = serializers.CharField(required=True)
+
+    def validate_old_password(self, value):
+        if not self.context['request'].user.check_password(value):
+            raise serializers.ValidationError(_('Wrong password'))
+        return value
+
+    def validate_new_password(self, value):
+        user = self.context['request'].user
+        errors = dict()
+        try:
+            validate_password(password=value, user=user)
+        except exceptions.ValidationError as e:
+            errors['password'] = list(e.messages)
+
+        if errors:
+            raise serializers.ValidationError(errors)
+
+        return value
 
     def validate(self, attrs):
         if attrs.get('new_password') != attrs.get('password_second'):
             raise serializers.ValidationError({'new_password': _('Passwords not match')})
-
         return attrs
 
     def save(self):
@@ -82,7 +100,7 @@ class ChangeUserEmailSerializer(serializers.ModelSerializer):
 
     def validate_new_email(self, value):
         user_email_exists = User.objects.filter(email=value).exists()
-        if user_email_exists or EmailChangingRequest.objects.filter(new_email=value, is_active=True).exists():
+        if user_email_exists or EmailChangingRequest.objects.filter(new_email=value, confirmed=True).exists():
             raise serializers.ValidationError(_('Email already taken.'))
 
         return value
@@ -99,6 +117,6 @@ class ChangeUserEmailSerializer(serializers.ModelSerializer):
         context = {'confirmation_link': settings.FRONTEND_URL + f'/profile/change_email/{request_uuid_signature}/'}
         html_content = get_template('email_letters/email_changing_confirmation.html').render(context)
         subject = _('Email changing confirmation')
-        send_email_task.delay([user.email], subject, html_content)
+        send_email_task.delay(subject, '',  html_content, [user.email])
 
         return request
