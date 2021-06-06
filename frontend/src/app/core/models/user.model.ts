@@ -14,5 +14,5 @@ export class ChangePassword{
 }
 
 export class ChangeEmail{
-    email?: string;
+    new_email?: string;
 }

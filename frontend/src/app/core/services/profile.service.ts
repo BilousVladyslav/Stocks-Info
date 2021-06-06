@@ -26,12 +26,10 @@ export class ProfileService {
   }
 
   ChangePassword(passwords: ChangePassword): Observable<any> {
-    return this.http
-      .put<any>(this.controllerUrl + 'change_password/', passwords);
+    return this.http.post<any>(this.controllerUrl + 'change_password/', passwords);
   }
 
   ChangeEmail(email: ChangeEmail): Observable<any> {
-    return this.http
-.post<any>(this.controllerUrl + 'change_email/', email);
+    return this.http.post<any>(this.controllerUrl + 'change_email/', email);
   }
 }

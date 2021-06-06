@@ -52,69 +52,72 @@
  
   <mat-tab label="Password changing">
     <section class="container  py-3">
-      <!-- <form [formGroup]="passwordChangingForm" (ngSubmit)="onSubmitProfile()" class="user-profile-container">
+      <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()" class="user-profile-container">
 
         <mat-form-field class="form-group mx-auto">
-          <input matInput formControlName="password" style="color: white" type="text" type="password" placeholder="{{ 'register.password.placeholder' | translate:locale.language }}">
-          <mat-error *ngIf="passwordChangingForm.controls.password.errors && (passwordChangingForm.controls.password.dirty || passwordChangingForm.controls.password.touched)">
-            <mat-error *ngIf="passwordChangingForm.controls.password.errors.required">
-              *{{ 'register.password.required' | translate:locale.language }}
+          <input matInput formControlName="old_password" style="color: white" type="text" type="password" placeholder="Old password">
+          <mat-error *ngIf="changePasswordForm.controls.old_password.errors && (changePasswordForm.controls.old_password.dirty || changePasswordForm.controls.old_password.touched)">
+            <mat-error *ngIf="changePasswordForm.controls.old_password.errors.required" class="error-message">
+              * Password is a required
             </mat-error>
-            <mat-error *ngIf="passwordChangingForm.controls.password.errors.minlength">
-              *{{ 'register.password.min_length' | translate:locale.language }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-group mx-auto">
+          <input matInput formControlName="new_password" style="color: white" type="text" type="password" placeholder="New password">
+          <mat-error *ngIf="changePasswordForm.controls.new_password.errors && (changePasswordForm.controls.new_password.dirty || changePasswordForm.controls.new_password.touched)">
+            <mat-error *ngIf="changePasswordForm.controls.new_password.errors.required">
+              * Password is a required
             </mat-error>
-            <mat-error *ngIf="passwordChangingForm.controls.password.errors.pattern">
-              *{{ 'register.password.regex' | translate:locale.language }}
+            <mat-error *ngIf="changePasswordForm.controls.new_password.errors.minlength">
+              * Password must be a minimum of 8 characters
             </mat-error>
-            <mat-error *ngIf="passwordChangingForm.controls.password.errors.maxlength">
-              *{{ 'register.password.max_length' | translate:locale.language }}
+            <mat-error *ngIf="changePasswordForm.controls.new_password.errors.pattern">
+              * Password must have uppercase and lowercase Latin letters, digit and character
+            </mat-error>
+            <mat-error *ngIf="changePasswordForm.controls.new_password.errors.maxlength">
+              * Password requires maximum 40 symbols
             </mat-error>
           </mat-error>
         </mat-form-field>
     
         <mat-form-field class="form-group mx-auto">
-          <input matInput formControlName="confirm_password" style="color: white" type="text" type="password" placeholder="{{ 'register.password_confirm.placeholder' | translate:locale.language }}">
-          <mat-error *ngIf="passwordChangingForm.controls.confirm_password.errors && (passwordChangingForm.controls.confirm_password.dirty || passwordChangingForm.controls.confirm_password.touched)">
-            <mat-error *ngIf="passwordChangingForm.controls.confirm_password.errors.required" class="error-message">
-              *{{ 'register.password_confirm.required' | translate:locale.language }}
+          <input matInput formControlName="password_second" style="color: white" type="text" type="password" placeholder="Confirm password">
+          <mat-error *ngIf="changePasswordForm.controls.password_second.errors && (changePasswordForm.controls.password_second.dirty || changePasswordForm.controls.password_second.touched)">
+            <mat-error *ngIf="changePasswordForm.controls.password_second.errors.required" class="error-message">
+              * Password confirming is a required
             </mat-error>
           </mat-error>
-          <mat-error *ngIf="passwordChangingForm.controls.confirm_password.errors?.mustMatch" class="error-message">
-            *{{ 'register.password_confirm.must_match' | translate:locale.language }}
+          <mat-error *ngIf="changePasswordForm.controls.password_second.errors?.mustMatch" class="error-message">
+            * Passwords doesn't match
           </mat-error>
         </mat-form-field>
 
         <div style="width: 60%" class='mx-auto'>
-          <button mat-raised-button color="accent" [disabled]="passwordChangingForm.invalid" class="p-2 w-100">Save</button>
+          <button mat-raised-button color="accent" [disabled]="changePasswordForm.invalid" class="p-2 w-100">Save</button>
         </div>
-      </form> -->
+      </form>
     </section>
 
   </mat-tab>
 
   <mat-tab label="Email changing">
     <section class="container  py-3">
-      <!-- <form [formGroup]="emailChangingForm" (ngSubmit)="onSubmitProfile()" class="user-profile-container">
+      <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail()" class="user-profile-container">
 
         <mat-form-field class="form-group mx-auto">
-          <input matInput formControlName="first_name" style="color: white" [(ngModel)]="user.first_name" placeholder="First name">
-          <mat-error *ngIf="emailChangingForm.controls.first_name.errors && (emailChangingForm.controls.first_name.dirty || emailChangingForm.controls.first_name.touched)">
-            <mat-error *ngIf="emailChangingForm.controls.first_name.errors.required">
-              * First name is a required
-            </mat-error>
-            <mat-error *ngIf="emailChangingForm.controls.first_name.errors.maxlength">
-              * First name requires maximum 50 symbols
-            </mat-error>
-            <mat-error *ngIf="emailChangingForm.controls.first_name.errors.pattern">
-              * First name must consists of uppercase and lowercase Latin letters
+          <input matInput formControlName="new_email" style="color: white" type="text" placeholder="Enter your new e-mail">
+          <mat-error *ngIf="changeEmailForm.controls.new_email.errors && (changeEmailForm.controls.new_email.dirty || changeEmailForm.controls.new_email.touched)">
+            <mat-error *ngIf="changeEmailForm.controls.new_email.errors.pattern">
+              * Email is <strong>required</strong>
             </mat-error>
           </mat-error>
         </mat-form-field>
 
         <div style="width: 60%" class='mx-auto'>
-          <button mat-raised-button color="accent" [disabled]="emailChangingForm.invalid" class="p-2 w-100">Save</button>
+          <button mat-raised-button color="accent" [disabled]="changeEmailForm.invalid" class="p-2 w-100">Save</button>
         </div>
-      </form> -->
+      </form>
     </section>
 
   </mat-tab>
