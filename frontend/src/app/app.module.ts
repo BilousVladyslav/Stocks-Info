@@ -16,6 +16,8 @@ import { AuthenticationService } from './core/services/authorization.service';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { LoginComponent } from './shared/components/login/login.component';
+import { EmailChangingComponent } from './components/complete-email-changing/complete-email-changing.component';
+import { RegistrationSubmitComponent } from './components/complete-registration/complete-registration.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -30,6 +32,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     RegistrationComponent,
     HomePageComponent,
     UserProfileComponent,
+    EmailChangingComponent,
+    RegistrationSubmitComponent
   ],
   imports: [
     BrowserModule,
