@@ -1,0 +1,121 @@
+<mat-tab-group class="container mt-3">
+
+  <mat-tab label="User profile">
+    <section class="container  py-3">
+      <form [formGroup]="userProfileForm" (ngSubmit)="onSubmitProfile()" class="user-profile-container">
+
+        <mat-form-field class="form-group mx-auto">
+          <input matInput style="color: white" [value]="user.username" [readonly]="true" placeholder="Username">
+        </mat-form-field>
+
+        <mat-form-field class="form-group mx-auto">
+          <input matInput style="color: white" [value]="user.email" type="text" [readonly]="true" placeholder="E-mail">
+        </mat-form-field>
+
+        <mat-form-field class="form-group mx-auto">
+          <input matInput formControlName="first_name" style="color: white" [(ngModel)]="user.first_name" placeholder="First name">
+          <mat-error *ngIf="userProfileForm.controls.first_name.errors && (userProfileForm.controls.first_name.dirty || userProfileForm.controls.first_name.touched)">
+            <mat-error *ngIf="userProfileForm.controls.first_name.errors.required">
+              * First name is a required
+            </mat-error>
+            <mat-error *ngIf="userProfileForm.controls.first_name.errors.maxlength">
+              * First name requires maximum 50 symbols
+            </mat-error>
+            <mat-error *ngIf="userProfileForm.controls.first_name.errors.pattern">
+              * First name must consists of uppercase and lowercase Latin letters
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-group mx-auto">
+          <input matInput formControlName="last_name" style="color: white" [(ngModel)]="user.last_name" placeholder="Last name">
+          <mat-error *ngIf="userProfileForm.controls.last_name.errors && (userProfileForm.controls.last_name.dirty || userProfileForm.controls.last_name.touched)">
+            <mat-error *ngIf="userProfileForm.controls.last_name.errors.required">
+              * Last name is a required
+            </mat-error>
+            <mat-error *ngIf="userProfileForm.controls.last_name.errors.maxlength">
+              * Last name requires maximum 50 symbols
+            </mat-error>
+            <mat-error *ngIf="userProfileForm.controls.last_name.errors.pattern">
+              * First name must consists of uppercase and lowercase Latin letters
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <div style="width: 60%" class='mx-auto'>
+          <button mat-raised-button color="accent" [disabled]="userProfileForm.invalid" class="p-2 w-100">Save</button>
+        </div>
+      </form>
+    </section>
+
+  </mat-tab>
+ 
+  <mat-tab label="Password changing">
+    <section class="container  py-3">
+      <!-- <form [formGroup]="passwordChangingForm" (ngSubmit)="onSubmitProfile()" class="user-profile-container">
+
+        <mat-form-field class="form-group mx-auto">
+          <input matInput formControlName="password" style="color: white" type="text" type="password" placeholder="{{ 'register.password.placeholder' | translate:locale.language }}">
+          <mat-error *ngIf="passwordChangingForm.controls.password.errors && (passwordChangingForm.controls.password.dirty || passwordChangingForm.controls.password.touched)">
+            <mat-error *ngIf="passwordChangingForm.controls.password.errors.required">
+              *{{ 'register.password.required' | translate:locale.language }}
+            </mat-error>
+            <mat-error *ngIf="passwordChangingForm.controls.password.errors.minlength">
+              *{{ 'register.password.min_length' | translate:locale.language }}
+            </mat-error>
+            <mat-error *ngIf="passwordChangingForm.controls.password.errors.pattern">
+              *{{ 'register.password.regex' | translate:locale.language }}
+            </mat-error>
+            <mat-error *ngIf="passwordChangingForm.controls.password.errors.maxlength">
+              *{{ 'register.password.max_length' | translate:locale.language }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="form-group mx-auto">
+          <input matInput formControlName="confirm_password" style="color: white" type="text" type="password" placeholder="{{ 'register.password_confirm.placeholder' | translate:locale.language }}">
+          <mat-error *ngIf="passwordChangingForm.controls.confirm_password.errors && (passwordChangingForm.controls.confirm_password.dirty || passwordChangingForm.controls.confirm_password.touched)">
+            <mat-error *ngIf="passwordChangingForm.controls.confirm_password.errors.required" class="error-message">
+              *{{ 'register.password_confirm.required' | translate:locale.language }}
+            </mat-error>
+          </mat-error>
+          <mat-error *ngIf="passwordChangingForm.controls.confirm_password.errors?.mustMatch" class="error-message">
+            *{{ 'register.password_confirm.must_match' | translate:locale.language }}
+          </mat-error>
+        </mat-form-field>
+
+        <div style="width: 60%" class='mx-auto'>
+          <button mat-raised-button color="accent" [disabled]="passwordChangingForm.invalid" class="p-2 w-100">Save</button>
+        </div>
+      </form> -->
+    </section>
+
+  </mat-tab>
+
+  <mat-tab label="Email changing">
+    <section class="container  py-3">
+      <!-- <form [formGroup]="emailChangingForm" (ngSubmit)="onSubmitProfile()" class="user-profile-container">
+
+        <mat-form-field class="form-group mx-auto">
+          <input matInput formControlName="first_name" style="color: white" [(ngModel)]="user.first_name" placeholder="First name">
+          <mat-error *ngIf="emailChangingForm.controls.first_name.errors && (emailChangingForm.controls.first_name.dirty || emailChangingForm.controls.first_name.touched)">
+            <mat-error *ngIf="emailChangingForm.controls.first_name.errors.required">
+              * First name is a required
+            </mat-error>
+            <mat-error *ngIf="emailChangingForm.controls.first_name.errors.maxlength">
+              * First name requires maximum 50 symbols
+            </mat-error>
+            <mat-error *ngIf="emailChangingForm.controls.first_name.errors.pattern">
+              * First name must consists of uppercase and lowercase Latin letters
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <div style="width: 60%" class='mx-auto'>
+          <button mat-raised-button color="accent" [disabled]="emailChangingForm.invalid" class="p-2 w-100">Save</button>
+        </div>
+      </form> -->
+    </section>
+
+  </mat-tab>
+</mat-tab-group>

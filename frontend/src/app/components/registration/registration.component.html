@@ -1,0 +1,97 @@
+<div class="p-5">
+  
+  <h3 class="text-center p-4 m-0" style="font-weight: 500; color: white;">New user registration</h3>
+  
+  <h5 class="p-2 text-center" style="font-weight: 500; color: white;">Enter your personal data:</h5>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-user-container">
+    <mat-form-field class="form-group mx-auto">
+      <input matInput formControlName="username" style="color: white" placeholder="Username">
+      <mat-error *ngIf="registerForm.controls.username.errors && (registerForm.controls.username.dirty || registerForm.controls.username.touched)">
+        <mat-error *ngIf="registerForm.controls.username.errors.required" class="error-message">
+          * Username is a required
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.username.errors.minlength">
+          * Username must be a minimum of 5 characters
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group mx-auto">
+      <input matInput formControlName="email" style="color: white" type="text" placeholder="Enter your e-mail">
+      <mat-error *ngIf="registerForm.controls.email.errors && (registerForm.controls.email.dirty || registerForm.controls.email.touched)">
+        <mat-error *ngIf="registerForm.controls.email.errors.pattern">
+          * Email is <strong>required</strong>
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group mx-auto">
+      <input matInput formControlName="password" style="color: white" type="text" type="password" placeholder="Password">
+      <mat-error *ngIf="registerForm.controls.password.errors && (registerForm.controls.password.dirty || registerForm.controls.password.touched)">
+        <mat-error *ngIf="registerForm.controls.password.errors.required">
+          * Password is a required
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.password.errors.minlength">
+          * Password must be a minimum of 8 characters
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.password.errors.pattern">
+          * Password must have uppercase and lowercase Latin letters, digit and character
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.password.errors.maxlength">
+          * Password requires maximum 40 symbols
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group mx-auto">
+      <input matInput formControlName="password_second" style="color: white" type="text" type="password" placeholder="Confirm the password">
+      <mat-error *ngIf="registerForm.controls.password_second.errors && (registerForm.controls.password_second.dirty || registerForm.controls.password_second.touched)">
+        <mat-error *ngIf="registerForm.controls.password_second.errors.required" class="error-message">
+          * Password confirming is a required
+        </mat-error>
+      </mat-error>
+      <mat-error *ngIf="registerForm.controls.password_second.errors?.mustMatch" class="error-message">
+        * Passwords doesn't match
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group mx-auto">
+      <input matInput formControlName="first_name" style="color: white" placeholder="First name">
+      <mat-error *ngIf="registerForm.controls.first_name.errors && (registerForm.controls.first_name.dirty || registerForm.controls.first_name.touched)">
+        <mat-error *ngIf="registerForm.controls.first_name.errors.required">
+          * First name is a required
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.first_name.errors.maxlength">
+          * First name requires maximum 50 symbols
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.first_name.errors.pattern">
+          * First name must consists of uppercase and lowercase Latin letters
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group mx-auto">
+      <input matInput formControlName="last_name" style="color: white" placeholder="Last name">
+      <mat-error *ngIf="registerForm.controls.last_name.errors && (registerForm.controls.last_name.dirty || registerForm.controls.last_name.touched)">
+        <mat-error *ngIf="registerForm.controls.last_name.errors.required">
+          * Last name is a required
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.last_name.errors.maxlength">
+          * Last name requires maximum 50 symbols
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.last_name.errors.pattern">
+          * Last name must consists of uppercase and lowercase Latin letters
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{errorMessage}}
+    </div>
+
+    <div style="width: 60%" class='mx-auto'>
+      <button mat-raised-button color="accent" class='w-100' [disabled]="registerForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>

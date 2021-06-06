@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand" routerLink="/">Stocks-Info</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul *ngIf="isLogged" class="navbar-nav">
+      <li class="nav-item active">
+        <a routerLink="/profile" class="nav-link">Profile</a>
+      </li>
+      <li class="nav-item active">
+        <a routerLink="/graph" class="nav-link">Graphs</a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav ml-auto">
+      <li *ngIf="isLogged" class="mx-auto">
+        <button mat-raised-button (click)="logOut()">Log out</button>
+      </li>
+      <li *ngIf="!isLogged" class="mx-auto">
+        <button mat-raised-button routerLink="/register" class="mr-3">Register</button>
+        <app-login class="ml-auto"></app-login>
+      </li>
+    </ul>
+  </div>
+</nav>
