@@ -27,6 +27,13 @@ SUPERUSER_EMAIL = os.environ.get('SUPERUSER_EMAIL', 'test@test.com')
 SUPERUSER_USERNAME = os.environ.get('SUPERUSER_USERNAME', 'test')
 SUPERUSER_PASSWORD = os.environ.get('SUPERUSER_PASSWORD', 'tester26')
 
+LIQPAY_PUBLIC_KEY = os.environ.get('LIQPAY_PUBLIC_KEY')
+LIQPAY_PRIVATE_KEY = os.environ.get('LIQPAY_PRIVATE_KEY')
+SERVER_URL = os.environ.get('SERVER_URL', '')
+
+DEFAULT_SUBSCRIPTION_MONTHS_PERIOD = os.environ.get('DEFAULT_SUBSCRIPTION_MONTHS_PERIOD', 6)
+DEFAULT_SUBSCRIPTION_PRICE = os.environ.get('DEFAULT_SUBSCRIPTION_PRICE', 100)
+
 MICROSERVICE_TITLE = os.environ.get('MICROSERVICE_TITLE', 'Stocks-Info')
 FRONTEND_URL = os.environ.get('FRONTEND_URL', 'localhost:4200')
 
@@ -67,7 +74,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'main.apps.MainConfig',
-
+    'subscriptions.apps.SubscriptionsConfig'
 ]
 
 INSTALLED_APPS += THIRD_PARTY_APPS + LOCAL_APPS

@@ -7,6 +7,10 @@ export SUPERUSER_EMAIL=`aws ssm get-parameters --profile vladyslav --name SUPERU
 export SUPERUSER_PASSWORD=`aws ssm get-parameters --profile vladyslav --name SUPERUSER_PASSWORD --with-decryption --query Parameters[].Value`
 export SUPERUSER_USERNAME=`aws ssm get-parameters --profile vladyslav --name SUPERUSER_USERNAME --with-decryption --query Parameters[].Value`
 
+export LIQPAY_PUBLIC_KEY=`aws ssm get-parameters --profile vladyslav --name LIQPAY_PUBLIC_KEY --query Parameters[].Value`
+export LIQPAY_PRIVATE_KEY=`aws ssm get-parameters --profile vladyslav --name LIQPAY_PRIVATE_KEY --with-decryption --query Parameters[].Value`
+export SERVER_URL=`aws ssm get-parameters --profile vladyslav --name SERVER_URL --query Parameters[].Value`
+
 export EMAIL_HOST=`aws ssm get-parameters --profile vladyslav --name EMAIL_HOST --query Parameters[].Value`
 export EMAIL_PORT=`aws ssm get-parameters --profile vladyslav --name EMAIL_PORT --query Parameters[].Value`
 export DEFAULT_FROM_EMAIL=`aws ssm get-parameters --profile vladyslav --name DEFAULT_FROM_EMAIL --with-decryption --query Parameters[].Value`

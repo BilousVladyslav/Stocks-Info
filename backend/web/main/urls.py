@@ -10,8 +10,8 @@ router.register('profile/change_email', ChangeUserEmailViewSet, basename='change
 router.register('profile/registration/complete', UserRegistrationConfirmationViewSet, basename='complete_registration')
 
 urlpatterns = [
-    path('profile/', UserProfileAPIView.as_view()),
-    path('profile/change_password/', ChangeUserPasswordAPIView.as_view())
+    path('profile/', UserProfileAPIView.as_view(), name='profile'),
+    path('profile/change_password/', ChangeUserPasswordAPIView.as_view(), name='change-password')
 ]
 
 urlpatterns += router.urls

@@ -1,8 +1,12 @@
 import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { SubscriptionsService } from 'src/app/core/services/subscriptions.service';
 import { User, ChangePassword, ChangeEmail } from 'src/app/core/models/user.model';
+import { PaymentModel } from 'src/app/core/models/payment.model';
+import { SubscriptionModel, SubscriptionInfoModel } from 'src/app/core/models/subscription.model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/core/services/authorization.service';
 import { NameRegex } from 'src/app/core/regexes/name.regex';
@@ -10,6 +14,7 @@ import { EmailRegex } from 'src/app/shared/regexes/email.regex';
 import { PasswordRegex } from 'src/app/shared/regexes/password.regex';
 import { FormControlMustMatchValidate } from 'src/app/shared/validators/form-control-match.validate';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,6 +22,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnDestroy {
+  displayedColumns: string[] = ['id', 'status', 'amount', 'subscription_start', 'subscription_end'];
+  subscriptionsData: SubscriptionModel[] = [];
   subscription: Subscription = new Subscription();
   user: User = new User;
   userProfileForm: FormGroup;
@@ -25,8 +32,11 @@ export class UserProfileComponent implements OnDestroy {
 
   constructor(
     private profileService: ProfileService,
+    private subscriptionService: SubscriptionsService,
     private authorizationService: AuthenticationService,
+    public dialog: MatDialog,
     private router: Router,
+    private http: HttpClient,
     private fb: FormBuilder,
     private _snackBar: MatSnackBar
   ) {
@@ -119,6 +129,19 @@ export class UserProfileComponent implements OnDestroy {
     );
   }
 
+  getSubscriptions(): void {
+    this.subscription.add(this.subscriptionService.GetSubscriptions().subscribe(data => this.subscriptionsData = data))
+  }
+
+  testJob(): void {
+    console.log(true);
+    
+  }
+
+  openDialog(){
+    this.dialog.open(SubscriptionDialog);
+  }
+
   onSubmitProfile(): void {
     this.EditUserProfile();
   }
@@ -127,4 +150,30 @@ export class UserProfileComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+}
+
+
+@Component({
+  selector: 'subscription-dialog',
+  templateUrl: 'subscription.dialog.html',
+})
+export class SubscriptionDialog {
+  public subscriptionData: SubscriptionInfoModel = new SubscriptionInfoModel;
+  public subscription: SubscriptionModel = new SubscriptionModel;
+
+  constructor(
+    private subscriptionService: SubscriptionsService,
+    public dialogRef: MatDialogRef<SubscriptionDialog>,
+  ) {
+    this.subscriptionService.GetSubscriptionData().subscribe(data => {
+      this.subscriptionData = data;
+      this.subscriptionService.CreateSubscription().subscribe(data => this.subscription = data)
+    })
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+    this.subscriptionService.DeleteSubscription(this.subscription.id as string).subscribe(() => this.dialogRef.close())
+  }
+
 }

@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Subscription checkout</h1>
+<div mat-dialog-content>
+  Checkout details:
+  <ul>
+    <li>
+      <span>&#10003;</span> Subscription start date: {{subscriptionData.start_date | date}}
+    </li>
+    <li>
+      <span>&#10003;</span> Subscription end date: {{subscriptionData.end_date | date}}
+    </li>
+    <li>
+      <span>&#10003;</span> Subscription price: {{subscriptionData.amount}} $
+    </li>
+  </ul>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <a mat-button color="accent" href="https://www.liqpay.ua/api/3/checkout?data={{subscription.payment_data}}&signature={{subscription.payment_signature}}">Checkout</a>
+</div>

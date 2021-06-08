@@ -119,6 +119,47 @@
         </div>
       </form>
     </section>
+  </mat-tab>
 
+  <mat-tab label="Subscriptions">
+    <ng-template mat-tab-label>
+      <span (click)="getSubscriptions()">Subscriptions</span>
+    </ng-template>
+    <ng-template matTabContent>
+      <section class="container  py-3">
+        <table mat-table [dataSource]="subscriptionsData" class="w-100" matSort matSortActive="subscription_end" matSortDisableClear matSortDirection="desc">
+        
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Subscription ID</th>
+            <td mat-cell *matCellDef="let row">{{row.id}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="subscription_start">
+            <th mat-header-cell *matHeaderCellDef>Date started</th>
+            <td mat-cell *matCellDef="let row">{{row.subscription_start | date}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="subscription_end">
+            <th mat-header-cell *matHeaderCellDef>End date</th>
+            <td mat-cell *matCellDef="let row">{{row.subscription_end | date}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let row">{{row.amount}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row">{{row.status}}</td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <!-- <button class="btn" (click)="openDialog()" href="https://www.liqpay.ua/api/3/checkout?data=eyJhY3Rpb24iOiAicGF5IiwgImFtb3VudCI6ICIxMDAuMDAiLCAiY3VycmVuY3kiOiAiVVNEIiwgImRlc2NyaXB0aW9uIjogIlN1YnNjcmlwdGlvbiBwYXltZW50IGZvciBjYWJvbWVoNDE0QHZ2YWExLmNvbS4gUGVyaW9kOiAyMDIxLTA2LTA4IDIwOjE2OjQ5Ljc4ODg5MyswMDowMCAtIDIwMjEtMTItMDggMjA6MTY6NDkuNzg4ODkzKzAwOjAwIiwgIm9yZGVyX2lkIjogIjAyZjc3NGFmLTNkYjAtNDY2YS05MmRiLThkNzM1ZmRiNzBjYyIsICJ2ZXJzaW9uIjogIjMiLCAic2FuZGJveCI6IDEsICJzZXJ2ZXJfdXJsIjogImh0dHBzOi8vYmVjZjNjNzYyZjVlLm5ncm9rLmlvL2FwaS9wYXltZW50L2NhbGxiYWNrLyIsICJwdWJsaWNfa2V5IjogInNhbmRib3hfaTYzNTYyNDc1NTYxIn0=&signature=XNJ5fBAeG8k5B8AFHxJZ3jrdTKY=">Continue to checkout</button> -->
+        <button class="btn" (click)="openDialog()">Continue to checkout</button>
+      </section>
+    </ng-template>
   </mat-tab>
 </mat-tab-group>

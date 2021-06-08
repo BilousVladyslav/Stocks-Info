@@ -20,7 +20,7 @@ import { EmailChangingComponent } from './components/complete-email-changing/com
 import { RegistrationSubmitComponent } from './components/complete-registration/complete-registration.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserProfileComponent, SubscriptionDialog } from './components/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     HomePageComponent,
     UserProfileComponent,
     EmailChangingComponent,
-    RegistrationSubmitComponent
+    RegistrationSubmitComponent,
+    SubscriptionDialog
   ],
   imports: [
     BrowserModule,
