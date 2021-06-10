@@ -21,6 +21,8 @@ import { RegistrationSubmitComponent } from './components/complete-registration/
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { UserProfileComponent, SubscriptionDialog } from './components/user-profile/user-profile.component';
+import { ProductsComponent } from './components/products/products.component';
+import { GraphComponent } from './components/graph/graph.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { UserProfileComponent, SubscriptionDialog } from './components/user-prof
     UserProfileComponent,
     EmailChangingComponent,
     RegistrationSubmitComponent,
-    SubscriptionDialog
+    SubscriptionDialog,
+    ProductsComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,

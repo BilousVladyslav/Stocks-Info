@@ -1,0 +1,25 @@
+<div class="container col-10 mx-auto">
+    <p class="display-4 m-3" style="color: white">Available products</p>
+
+    <div class='row'>
+
+        <div *ngFor="let item of products" class="col-6">
+            <mat-card class="m-2">
+                <mat-card-header>
+                    <div mat-card-avatar style="background-image: url({{item.logo_url}}); background-size: cover;"></div>
+                    <mat-card-title>{{item.name}}</mat-card-title>
+                    <mat-card-subtitle>{{item.sector}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>Description: {{item.description | slice:0:512}} {{ item.description!.length > 512 ? '...' : '' }}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button routerLink="/graph/{{item.id}}" [disabled]="!isLogged">View graphs</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+    </div>
+    
+
+<div>

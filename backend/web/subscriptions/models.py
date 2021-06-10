@@ -3,6 +3,8 @@ import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .managers import SubscriptionManager
+
 
 class Subscription(models.Model):
     id = models.UUIDField(_('UUID'), primary_key=True, default=uuid.uuid4, editable=False)
@@ -15,6 +17,9 @@ class Subscription(models.Model):
     status = models.CharField(_('LiqPay status'), blank=True, editable=False, max_length=255)
     callback = models.JSONField(_('LiqPay callback'), default=dict, blank=True)
 
+    objects = SubscriptionManager()
+
     class Meta:
+        ordering = ('-subscription_end', '-status')
         verbose_name = _('Subscription')
         verbose_name_plural = _('Subscriptions')

@@ -27,3 +27,7 @@
 .btn:hover {
     background-color: #45a049;
 }
+
+.highlight{
+    background: #42A948; /* green */
+}

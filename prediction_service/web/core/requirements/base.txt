@@ -3,20 +3,12 @@ django==3.2.2
 # for PostgreSql database
 psycopg2==2.8.6
 
-# Ddos defender: required redis
-django-defender==0.9.0
-
 # redis
 redis==3.5.3
 
 # for RestAPI
 djangorestframework==3.12.4
 drf-yasg==1.20.0 # Swagger
-
-# for auth system
-django-allauth==0.42.0
-dj-rest-auth==2.1.3
-djangorestframework-simplejwt==4.6.0
 
 # For backend working
 celery==5.0.5
@@ -30,10 +22,6 @@ djangorestframework-api-key==2.0.0
 # For testing
 flake8==3.9.0
 
-# Async Support
-uvicorn==0.13.3
-httpx==0.16.1
-
 # Cashe Support
 django-cacheops==5.1
 
@@ -46,12 +34,6 @@ python-json-logger==2.0.1
 # Translation
 django-rosetta==0.9.5
 
-# Jaeger OpenTracing
-jaeger-client==4.4.0
-django_opentracing==1.1.0
-
-# Monitoring System
-sentry-sdk==1.0.0
-
-# MicroService Requests
-django-microservice-request>=0.1.3.3
+# Stocks
+lxml==4.6.3
+yfinance==0.1.59

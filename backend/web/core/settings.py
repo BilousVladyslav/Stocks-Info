@@ -74,7 +74,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'main.apps.MainConfig',
-    'subscriptions.apps.SubscriptionsConfig'
+    'subscriptions.apps.SubscriptionsConfig',
+    'stocks.apps.StocksConfig'
 ]
 
 INSTALLED_APPS += THIRD_PARTY_APPS + LOCAL_APPS
@@ -90,7 +91,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'defender.middleware.FailedLoginMiddleware',
+    # 'defender.middleware.FailedLoginMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 
 ]

@@ -5,6 +5,7 @@ import { EmailChangingComponent } from './components/complete-email-changing/com
 import { RegistrationSubmitComponent } from './components/complete-registration/complete-registration.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { GraphComponent } from './components/graph/graph.component';
+import { ProductsComponent } from './components/products/products.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -29,7 +30,11 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-    path: 'graph',
+    path: 'products',
+    component: ProductsComponent
+  },
+  {
+    path: 'graph/:id',
     component: GraphComponent
   },
 ];

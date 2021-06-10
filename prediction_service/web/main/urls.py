@@ -1,9 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from django.urls import path
-from django.views.generic import RedirectView
-from .views import UserView
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
 
 urlpatterns = [
-    path('', login_required(RedirectView.as_view(pattern_name='admin:index'))),
-    path('user/', UserView.as_view()),
+
 ]
+
+urlpatterns += router.urls

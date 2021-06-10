@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Subscription
+
+
+@admin.register(Subscription)
+class SubscriptionModelAdmin(admin.ModelAdmin):
+    list_filter = ('status',)
+    pass

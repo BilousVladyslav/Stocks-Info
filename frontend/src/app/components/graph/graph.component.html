@@ -1,3 +1,36 @@
-<div class="col my-3">
-    <div id="chartContainer"></div>
+<div class="col my-3 px-0">
+    <mat-spinner class="mx-auto my-5" color="accent" *ngIf="!loaded"></mat-spinner>
+
+    <div *ngIf="loaded" class="container" style="color: white;">
+        <blockquote class="blockquote">
+            <div class="row mt-5 mb-3">
+                <div mat-card-avatar style="background-image: url({{productDetails.logo_url}}); background-size: cover; height: 80px; width: 80px;"></div>
+                <p class='display-4 my-auto ml-4'> {{productDetails.name}}</p>
+            </div>
+            <footer class="blockquote-footer">{{productDetails.sector}}</footer>
+            <p class="lead my-3"> {{productDetails.description}} </p>
+        </blockquote>
+        <mat-divider class="m-3"></mat-divider>
+        <dl class="row">
+            <dt class="col-sm-3">Recomendation</dt>
+            <dd class="col-sm-9 text-uppercase">{{productDetails.last_recommendations!.Action}}</dd>
+
+            <dt class="col-sm-3">Web-site</dt>
+            <dd class="col-sm-9">{{productDetails.info!.website}}</dd>
+
+            <dt class="col-sm-3">Country</dt>
+            <dd class="col-sm-9">{{productDetails.info!.country}}</dd>
+
+            <dt class="col-sm-3">City</dt>
+            <dd class="col-sm-9">{{productDetails.info!.city}}</dd>
+
+            <dt class="col-sm-3">Nasdaq code</dt>
+            <dd class="col-sm-9">{{productDetails.code}}</dd>
+
+            <dt class="col-sm-3">Industry</dt>
+            <dd class="col-sm-9">{{productDetails.info!.industry}}</dd>
+        </dl>
+    </div>
+    
+    <div id="chartContainer" style="margin-bottom: 650px; "></div>
 </div>

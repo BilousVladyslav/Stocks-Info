@@ -22,7 +22,7 @@ export class SubscriptionsService {
   }
 
   DeleteSubscription(id: string): Observable<SubscriptionModel> {
-    return this.http.delete<SubscriptionModel>(this.controllerUrl + id);
+    return this.http.delete<SubscriptionModel>(this.controllerUrl + id + '/');
   }
 
   CreateSubscription(): Observable<SubscriptionModel> {

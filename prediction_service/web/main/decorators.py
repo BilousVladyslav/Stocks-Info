@@ -1,8 +1,9 @@
 import logging
-from django.core.cache import cache
-from requests.exceptions import RequestException
-from kombu.exceptions import OperationalError
 from timeit import default_timer
+
+from django.core.cache import cache
+from kombu.exceptions import OperationalError
+from requests.exceptions import RequestException
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,9 @@ def cached_function_result(timeout=300):
             result = function(*args, **kwargs)
             cache.set(function.__name__, result, timeout=timeout)
             return result
+
         return wrapper
+
     return decorator
 
 
@@ -28,6 +31,7 @@ def execution_time(func) -> object:
         logger.info(f'Returned data: {data}, Type: {type(data)}')
         logger.info('############ SEPARATING ############')
         return data
+
     return delta_time
 
 
@@ -39,7 +43,9 @@ def except_shell(errors=(Exception,), default_value=''):
             except errors as e:
                 logging.error(e)
                 return default_value or None
+
         return new_func
+
     return decorator
 
 

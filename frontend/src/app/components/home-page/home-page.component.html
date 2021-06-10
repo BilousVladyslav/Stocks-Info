@@ -1,10 +1,61 @@
-<div class="col my-3">
-    <mat-card class="example-card mx-auto" style="max-width: 1200px">
-        <img mat-card-image src="../../../../assets/images/tree.jpg">
-        <mat-card-content>
-            <p>
-            About
+<div class="container my-3" style="color: white;">
+    <div class="row my-5">
+        <div class="col">
+            <img class="w-100" src="https://d.stockcharts.com/img/scc-feature-homepage-01.jpg">
+        </div>
+        <div class="col">
+            <p class="display-4">
+                Real-time charting, <span style="color: #32d047">wherever you go</span>.
             </p>
-        </mat-card-content>
-    </mat-card>
+            <h3 class="blockquote-footer">
+                The markets won't stop because you're away from your desk. 
+                You need a real-time charting platform that goes where you go - anywhere, anytime, on any device.
+            </h3>
+            <p>
+                Built for the modern investor, Stocks-Info puts the industry's best technical tools and resources at your fingertips, 
+                with no software to install or frustrating compatibility issues. Whether you're on a desktop, laptop, smartphone or tablet, 
+                access everything in your account seamlessly from any web-enabled device.
+            </p>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col">
+            <p class="display-4">
+                A <span style="color: #32d047">complete toolkit</span> for every stage of your investing process.
+            </p>
+            <p>
+                Whether you’re an active trader or simply managing your retirement accounts, 
+                StockCharts has everything you need to plan, organize and execute any investing system. 
+                Our comprehensive feature set is designed to provide you with a complete analysis and portfolio management toolkit.
+            </p>
+        </div>
+        <div class="col">
+            <img class="w-100" src="https://d.stockcharts.com/img/scc-feature-homepage-02.jpg">
+        </div>
+    </div>
+    <mat-divider class="m-3"></mat-divider>
+    <blockquote class="blockquote text-center">
+        <p class="display-4 mt-5 mb-4">Get it now!</p>
+        <p class="text-muted my-3">Get started now for free in less than 60 seconds.</p>
+        <a *ngIf="isLogged" mat-raised-button color="accent" routerLink="/products" class="my-3 px-5">Try it!</a>
+        <a *ngIf="!isLogged" mat-raised-button color="accent" routerLink="/register" class="my-3 px-5">Sign Up</a>
+    </blockquote>
+    <mat-divider class="m-3"></mat-divider>
+    <blockquote class="blockquote text-center mb-5">
+        <p class="display-4 mt-5 mb-4">Powered by</p>
+        <ul class="logosList row p-0 justify-content-md-center">
+            <div class="logoItem">
+                <img src="https://www.opengis.ch/wp-content/uploads/2020/04/django-python-logo-e1588009010920.png" class="w-100 h-100" alt="your_keyword"/>
+            </div>
+            <div class="logoItem">
+                <img src="https://angular.io/assets/images/logos/angularjs/AngularJS-Shield.svg" class="w-100 h-100" alt="your_keyword"/>
+            </div>
+            <div class="logoItem">
+                <img src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/97_Docker-512.png" class="w-100 h-100" alt="your_keyword"/>
+            </div>
+            <div class="logoItem">
+                <img src="https://its.lmu.edu/media/its/aws.png" class="w-100 h-100" alt="your_keyword"/>
+            </div>
+        </ul>
+    </blockquote>
 </div>

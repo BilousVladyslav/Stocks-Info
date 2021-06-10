@@ -9,6 +9,7 @@ def set_superuser(apps, schema_editor):
     user_obj = apps.get_model("main", "User")
     user = user_obj(
         email=settings.SUPERUSER_EMAIL,
+        username=settings.SUPERUSER_USERNAME,
         first_name='Super',
         last_name='Admin',
         is_staff=True,

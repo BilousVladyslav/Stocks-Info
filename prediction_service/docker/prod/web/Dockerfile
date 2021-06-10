@@ -10,7 +10,7 @@ WORKDIR /usr/src/web
 
 RUN apk update \
 	  # install psycopg2 dependencies
-    && apk add postgresql-dev gcc python3-dev musl-dev openssl libffi-dev openssl-dev \
+    && apk add postgresql-dev gcc python3-dev musl-dev openssl libffi-dev openssl-dev git \
     # install Pillow dependencies
     jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev harfbuzz-dev fribidi-dev
 

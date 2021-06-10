@@ -31,7 +31,7 @@ class SubscriptionViewSet(ModelViewSet):
         data = dict(serializer.data)
         payment_data, payment_signature = self.service.create_payment_credentials_for_subscription(
             subscription=subscription,
-            email=self.request.user.email
+            email=request.user.email
         )
         data['payment_data'] = payment_data
         data['payment_signature'] = payment_signature
@@ -43,9 +43,16 @@ class SubscriptionInfoView(GenericAPIView):
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
+        subscription = Subscription.objects.get_success_subscriptions(request.user).last()
+
+        if subscription:
+            start_date = subscription.subscription_end
+        else:
+            start_date = timezone.now()
+
         data = {
-            'start_date': timezone.now(),
-            'end_date': timezone.now() + relativedelta(months=+settings.DEFAULT_SUBSCRIPTION_MONTHS_PERIOD),
+            'start_date': start_date,
+            'end_date': start_date + relativedelta(months=+settings.DEFAULT_SUBSCRIPTION_MONTHS_PERIOD),
             'amount': settings.DEFAULT_SUBSCRIPTION_PRICE
         }
         return Response(data)
@@ -57,5 +64,6 @@ class LiqPayCallbackView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         callback = self.service.decode_callback(request.data.get('data'), request.data.get('signature'))
-        services.output_callback(callback)
+        if callback:
+            Subscription.objects.filter(id=callback['order_id']).update(callback=callback, status='success')
         return Response()

@@ -11,3 +11,6 @@ celerybeat*
 web/.cache
 .cache
 web/media/*
+
+up.sh
+build.sh

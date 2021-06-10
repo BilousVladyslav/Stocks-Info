@@ -11,10 +11,10 @@ User = get_user_model()
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     ordering = ('-id',)
-    list_display = ('email', 'full_name', 'is_active')
+    list_display = ('username', 'email', 'full_name', 'is_active')
 
     fieldsets = (
-        (_('Personal info'), {'fields': ('id', 'first_name', 'last_name', 'email')}),
+        (_('Personal info'), {'fields': ('id', 'first_name', 'last_name', 'email', 'username')}),
         (_('Secrets'), {'fields': ('password',)}),
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),

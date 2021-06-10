@@ -11,6 +11,7 @@ admin_url = settings.ADMIN_URL
 urlpatterns = [
     path('api/', include('main.urls')),
     path('api/', include('subscriptions.urls')),
+    path('api/', include('stocks.urls')),
     path(f'api/{admin_url}/', admin.site.urls),
     path(f'api/{admin_url}/defender/', include('defender.urls')),
     path('api/', include('rest_framework.urls')),

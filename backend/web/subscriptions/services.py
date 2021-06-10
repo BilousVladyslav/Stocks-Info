@@ -7,7 +7,7 @@ from liqpay.liqpay3 import LiqPay
 from .models import Subscription
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 def output_callback(callback: dict) -> None:
@@ -31,7 +31,7 @@ class LiqPayService:
             'order_id': order_id,
             'version': '3',
             'sandbox': 1,
-            'result_url': settings.FRONTEND_URL + '/profile',
+            'result_url': 'http://' + settings.FRONTEND_URL + '/profile',
             'server_url': settings.SERVER_URL + reverse('subscriptions:payment-callback'),
         }
         signature = self.liqpay.cnb_signature(params)

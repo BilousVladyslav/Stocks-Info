@@ -17,6 +17,7 @@ ARG USER=ubuntu
 # install dependencies
 RUN apk update \
     && apk add --no-cache curl postgresql-dev gcc python3-dev musl-dev openssl libffi-dev openssl-dev build-base \
+    libxml2-dev libxslt-dev \
     # install Pillow dependencies
     jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev harfbuzz-dev fribidi-dev git \
 	  && pip install --upgrade pip \

@@ -18,6 +18,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatRippleModule} from '@angular/material/core';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {MatListModule} from '@angular/material/list';
     MatGridListModule,
     MatRippleModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }

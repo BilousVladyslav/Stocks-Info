@@ -22,6 +22,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnDestroy {
+  date_now = new Date();
   displayedColumns: string[] = ['id', 'status', 'amount', 'subscription_start', 'subscription_end'];
   subscriptionsData: SubscriptionModel[] = [];
   subscription: Subscription = new Subscription();
@@ -40,7 +41,13 @@ export class UserProfileComponent implements OnDestroy {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar
   ) {
+    authorizationService.token.subscribe(value => {
+      if(value == null){
+        this.router.navigate(['']);
+      }
+    });
     this.GetUserProfile();
+    this.getSubscriptions();
     this.userProfileForm = this.fb.group({
       first_name: new FormControl(
         '', [Validators.required, Validators.maxLength(50), Validators.pattern(NameRegex.Regex)]),
@@ -79,6 +86,11 @@ export class UserProfileComponent implements OnDestroy {
         this.user = data;
       })
     );
+  }
+  isCurrentSubscription(subscription: SubscriptionModel): boolean {
+    let start_date = subscription.subscription_start;
+    let end_date = subscription.subscription_end;
+    return new Date(start_date!) <= new Date() && new Date(end_date!) >= new Date()
   }
 
   EditUserProfile(): void {
@@ -172,7 +184,6 @@ export class SubscriptionDialog {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
     this.subscriptionService.DeleteSubscription(this.subscription.id as string).subscribe(() => this.dialogRef.close())
   }
 
