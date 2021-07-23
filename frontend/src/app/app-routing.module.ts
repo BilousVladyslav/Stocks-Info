@@ -10,20 +10,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomePageComponent
-  },
-  {
-    path: 'profile/change_email/:link',
-    component: EmailChangingComponent
-  },
-  {
-    path: 'profile/registration_complete/:link',
-    component: RegistrationSubmitComponent
-  },
-  {
     path: 'profile',
-    component: UserProfileComponent
+    component: UserProfileComponent,
+    pathMatch: 'full' 
   },
   {
     path: 'register',
@@ -36,6 +25,18 @@ const routes: Routes = [
   {
     path: 'graph/:id',
     component: GraphComponent
+  },
+  {
+    path: 'change_email/:link',
+    component: EmailChangingComponent
+  },
+  {
+    path: 'registration_complete/:link',
+    component: RegistrationSubmitComponent,
+  },
+  {
+    path: '',
+    component: HomePageComponent
   },
 ];
 

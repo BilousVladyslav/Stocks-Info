@@ -22,7 +22,7 @@ export class LoginComponent implements OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    if (this.authenticationService.token) {
+    if (this.authenticationService.tokenValue) {
       this.router.navigate(['/']);
     }
     this.submited = false;

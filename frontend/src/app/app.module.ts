@@ -10,8 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/interceptors/http.error.interceptor';
-import { appInitializer } from './core/helpers/app.initializer';
-import { AuthenticationService } from './core/services/authorization.service';
 
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';

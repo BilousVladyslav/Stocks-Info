@@ -19,7 +19,7 @@ export class AuthenticationService {
         private http: HttpClient
     ) {
         let token = localStorage.getItem('token');
-        if(token != null){
+        if(token){
             this.tokenSubject = new BehaviorSubject<TokenResponse | null>(JSON.parse(token) as TokenResponse);
             this.startRefreshTokenTimer();
         } else {

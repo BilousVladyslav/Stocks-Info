@@ -15,7 +15,7 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthenticationService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if(this.authenticationService.tokenValue != null) {
+    if(this.authenticationService.tokenValue) {
       request = request.clone({
           setHeaders: {
               Authorization: `JWT ` + this.authenticationService.tokenValue!.access

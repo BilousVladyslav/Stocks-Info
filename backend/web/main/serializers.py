@@ -3,6 +3,7 @@ import hashlib
 from django.conf import settings
 from django.core import exceptions
 from django.core.signing import TimestampSigner
+from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
@@ -47,9 +48,17 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         delete_unconfirmed_user.apply_async((user.id,), countdown=settings.USER_CONFIRMATION_TIMEOUT)
 
         user_id_signature = TimestampSigner().sign(user.id)
-        link = settings.FRONTEND_URL + f'/profile/registration_complete/{user_id_signature}/'
+        link = 'http://' + settings.FRONTEND_URL + f'/registration_complete/{user_id_signature}'
         html_content = get_template('email_letters/registration_confirmation.html').render({'confirmation_link': link})
         subject = _('Registration confirmation')
+        send_mail(
+            subject,
+            '',
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+            html_message=html_content,
+            fail_silently=False,
+        )
         send_email_task.delay(subject, '',  html_content, [user.email])
 
         return user
@@ -114,9 +123,17 @@ class ChangeUserEmailSerializer(serializers.ModelSerializer):
         request = EmailChangingRequest.objects.create(**validated_data, user=user)
 
         request_uuid_signature = TimestampSigner().sign(request.uuid)
-        context = {'confirmation_link': settings.FRONTEND_URL + f'/profile/change_email/{request_uuid_signature}/'}
+        context = {'confirmation_link': 'http://' + settings.FRONTEND_URL + f'/change_email/{request_uuid_signature}'}
         html_content = get_template('email_letters/email_changing_confirmation.html').render(context)
         subject = _('Email changing confirmation')
+        send_mail(
+            subject,
+            '',
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+            html_message=html_content,
+            fail_silently=False,
+        )
         send_email_task.delay(subject, '',  html_content, [user.email])
 
         return request

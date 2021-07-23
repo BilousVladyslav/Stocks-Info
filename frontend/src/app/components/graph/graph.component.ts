@@ -48,13 +48,14 @@ export class GraphComponent implements OnInit, OnDestroy {
     return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
   }
 
-  getDate(date: string){
-    var d = new Date(date);
-    var year = d.getFullYear();
-    var month = d.getMonth();
-    var day = d.getDate();
-    return new Date(year + 3, month, day);
+  getDate(date: Date){
+    date = new Date(date)
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    var day = date.getDate();
+    return new Date(year, month, day + 7);
   }
+
   initChart(){
     let dataPoints1 : any[] = [], dataPoints2 : any[] = [], dataPoints3 : any[] = [];
     let dpsLength = 0;
@@ -135,9 +136,12 @@ export class GraphComponent implements OnInit, OnDestroy {
       }
     });
     for(var i = 0; i < this.productDetails.history!.length; i++){
-      dataPoints1.push({x: new Date(this.productDetails.history![i].Date!), y: [this.productDetails.history![i].Open!, this.productDetails.history![i].High!, this.productDetails.history![i].Low!, this.productDetails.history![i].Close!]});;
-      dataPoints2.push({x: new Date(this.productDetails.history![i].Date!), y: this.productDetails.history![i].Volume!});
-      dataPoints3.push({x: new Date(this.productDetails.history![i].Date!), y: this.productDetails.history![i].Close!});
+      dataPoints1.push({x: this.getDate(this.productDetails.history![i].Date!), y: [this.productDetails.history![i].Open!, this.productDetails.history![i].High!, this.productDetails.history![i].Low!, this.productDetails.history![i].Close!]});;
+      dataPoints2.push({x: this.getDate(this.productDetails.history![i].Date!), y: this.productDetails.history![i].Volume!});
+      dataPoints3.push({x: this.getDate(this.productDetails.history![i].Date!), y: this.productDetails.history![i].Close!});
+      // dataPoints1.push({x: new Date(this.productDetails.history![i].Date!), y: [this.productDetails.history![i].Open!, this.productDetails.history![i].High!, this.productDetails.history![i].Low!, this.productDetails.history![i].Close!]});;
+      // dataPoints2.push({x: new Date(this.productDetails.history![i].Date!), y: this.productDetails.history![i].Volume!});
+      // dataPoints3.push({x: new Date(this.productDetails.history![i].Date!), y: this.productDetails.history![i].Close!});
       // dataPoints1.push({x: new Date(new Date(data[i].date).setFullYear(new Date(data[i].date).getFullYear() + 3)), y: [Number(data[i].open), Number(data[i].high), Number(data[i].low), Number(data[i].close)]});;
       // dataPoints2.push({x: new Date(new Date(data[i].date).setFullYear(new Date(data[i].date).getFullYear() + 3)), y: Number(data[i].volume_usd)});
       // dataPoints3.push({x: new Date(new Date(data[i].date).setFullYear(new Date(data[i].date).getFullYear() + 3)), y: Number(data[i].close)});

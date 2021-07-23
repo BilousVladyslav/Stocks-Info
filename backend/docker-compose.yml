@@ -76,6 +76,7 @@ services:
         condition: service_started
     restart: always
     networks:
+      - microservice_network
       - separated_network
 
 
